@@ -2,12 +2,28 @@ import java.security.InvalidParameterException;
 
 public class BinaryTreeNode implements Comparable<Integer>
 {
+     private boolean isRightChild;
      private int element;
      private BinaryTreeNode leftChild;
      private BinaryTreeNode rightChild;
+     private BinaryTreeNode parent;
 
      public BinaryTreeNode()
+     { }
+
+     public BinaryTreeNode(BinaryTreeNode parent)
      {
+          this.parent = parent;
+     }
+
+     public BinaryTreeNode getParent()
+     {
+          return parent;
+     }
+
+     private void setParent(BinaryTreeNode parent)
+     {
+          this.parent = parent;
      }
 
      public BinaryTreeNode(int element)
@@ -27,9 +43,11 @@ public class BinaryTreeNode implements Comparable<Integer>
           return element;
      }
 
-     public void addLeftChild(BinaryTreeNode left)
+     public void addLeftChild(BinaryTreeNode child)
      {
-          this.leftChild = left;
+          this.leftChild = child;
+          child.setParent(this);
+          child.setRightChild(false);
      }
 
      public BinaryTreeNode getLeftChild()
@@ -37,14 +55,40 @@ public class BinaryTreeNode implements Comparable<Integer>
           return leftChild;
      }
 
-     public void addRightChild(BinaryTreeNode right)
+     public void addRightChild(BinaryTreeNode child)
      {
-          this.rightChild = right;
+          this.rightChild = child;
+          child.setParent(this);
+          child.setRightChild(true);
+     }
+
+     public boolean isRightChild()
+     {
+          return isRightChild;
+     }
+
+     public boolean isLeftChild(){
+          return !isRightChild;
+     }
+
+     private void setRightChild(boolean rightChild)
+     {
+          isRightChild = rightChild;
      }
 
      public BinaryTreeNode getRightChild()
      {
           return rightChild;
+     }
+
+     public void removeRightChild()
+     {
+          rightChild = null;
+     }
+
+     public void removeLeftChild()
+     {
+          leftChild = null;
      }
 
      @Override
