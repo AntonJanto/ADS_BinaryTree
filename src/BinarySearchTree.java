@@ -26,7 +26,10 @@ public class BinarySearchTree extends BinaryTree
 }
 
   public void insert(int elementToInsert){
-    insertToNode(elementToInsert, this.getRoot());
+    if (isEmpty())
+      setRoot(new BinaryTreeNode(elementToInsert));
+    else
+      insertToNode(elementToInsert, this.getRoot());
   }
 
   private void insertToNode(int elementToInsert, BinaryTreeNode treeNode){
