@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class BinarySearchTree extends BinaryTree
 {
   public BinarySearchTree()
@@ -159,10 +161,27 @@ public class BinarySearchTree extends BinaryTree
   }
 
   public void rebalance(){
+    ArrayList<Integer> elements = inOrder();
+
+    if(size() > 3){
+      int mid = elements.size()/2;
+      var low = elements.subList(0, mid);
+      var high = elements.subList(mid+1, elements.size());
+
+      System.out.println(elements);
+      System.out.println(elements.get(mid));
+      System.out.println(low);
+      System.out.println(high);
+    }
   }
 
-  private void rebalanceSubtree(){
+  private void rebalanceSubtree(ArrayList<Integer> elements, BinaryTreeNode treeNode){
+    int mid = elements.size()/2;
+    var low = elements.subList(0, mid);
+    var high = elements.subList(mid+1, elements.size());
 
+    if(low.size() == 1)
+      treeNode.addLeftChild(new BinaryTreeNode(low.get(0)));
   }
 
   public void print(){
