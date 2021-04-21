@@ -19,6 +19,7 @@ public class BinaryTreePrint {
 		ArrayList<BinaryTreeNode> parent = new ArrayList<BinaryTreeNode>();
 		parent.add(root);
 		printT(parent, 64);
+		System.out.println("");
 	}
 
 	private void printT(ArrayList<BinaryTreeNode> parent, int left) {

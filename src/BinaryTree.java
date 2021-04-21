@@ -139,4 +139,7 @@ public class BinaryTree
                addLevel(root.getRightChild(), level-1, levelOrderList);
           }
      }
+     public void print(){
+          new BinaryTreePrint().printTree(getRoot());
+     }
 }

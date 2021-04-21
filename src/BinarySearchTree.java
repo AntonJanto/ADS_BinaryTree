@@ -2,29 +2,6 @@ import java.util.ArrayList;
 
 public class BinarySearchTree extends BinaryTree
 {
-  public BinarySearchTree()
-  {
-  }
-  public void loadSampleData(){
-  //create nodes
-  var root = new BinaryTreeNode(5);
-
-  var treeNode3 = new BinaryTreeNode(3);
-  var treeNode1 = new BinaryTreeNode(1);
-  var treeNode7 = new BinaryTreeNode(7);
-  var treeNode8 = new BinaryTreeNode(8);
-
-  //add the nodes to the tree
-  root.addLeftChild(treeNode1);
-  root.addRightChild(treeNode7);
-
-  treeNode1.addRightChild(treeNode3);
-
-  treeNode7.addRightChild(treeNode8);
-
-  this.setRoot(root);
-}
-
   public void insert(int elementToInsert){
     if (isEmpty())
       setRoot(new BinaryTreeNode(elementToInsert));
@@ -130,7 +107,7 @@ public class BinarySearchTree extends BinaryTree
       return;
     }
 
-    //todo: make it easier by using isRightChild
+    //todo: could be made easier by using isRightChild
     //case: it's a leaf, the node can be easily deleted
     BinaryTreeNode parent = nodeToDelete.getParent();
     if(parent.getLeftChild() == nodeToDelete)
@@ -138,7 +115,7 @@ public class BinarySearchTree extends BinaryTree
     else
       parent.removeRightChild();
 
-    //todo: there will be error when the root node is deleted
+    //todo: there might be error when the root node is deleted
   }
 
   public BinaryTreeNode find(int elementToFind){
@@ -164,27 +141,25 @@ public class BinarySearchTree extends BinaryTree
   }
 
   public void rebalance(){
-    ArrayList<Integer> elements = inOrder();
-
-    if(size() > 3){
-      int mid = elements.size()/2;
-      var low = elements.subList(0, mid);
-      var high = elements.subList(mid+1, elements.size());
-
-      System.out.println(elements);
-      System.out.println(elements.get(mid));
-      System.out.println(low);
-      System.out.println(high);
-    }
+      setRoot(balancedTree(inOrder(), 0, size()));
   }
 
-  private void rebalanceSubtree(ArrayList<Integer> elements, BinaryTreeNode treeNode){
-    int mid = elements.size()/2;
-    var low = elements.subList(0, mid);
-    var high = elements.subList(mid+1, elements.size());
-
-    if(low.size() == 1)
-      treeNode.addLeftChild(new BinaryTreeNode(low.get(0)));
+  private BinaryTreeNode balancedTree(ArrayList<Integer> elements, int lowIndex, int highIndex){
+    int midIndex = lowIndex+(highIndex-lowIndex)/2;
+//    System.out.println("elements:" + elements.subList(lowIndex, highIndex));
+//    System.out.println("low:" + lowIndex + " mid:" + midIndex + " high:" + highIndex);
+    BinaryTreeNode node = new BinaryTreeNode(elements.get(midIndex));
+//    System.out.println("adding:" + elements.get(midIndex));
+    if(lowIndex<midIndex){
+//    System.out.println("continue left");
+      node.addLeftChild(balancedTree(elements, lowIndex, midIndex));
+    }
+    if(highIndex-1>midIndex)
+    {
+//    System.out.println("continue right");
+      node.addRightChild(balancedTree(elements, midIndex+1, highIndex));
+    }
+    return node;
   }
 
   public void print(){

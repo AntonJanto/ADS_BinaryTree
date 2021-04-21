@@ -1,6 +1,8 @@
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class BinarySearchTreeTest
@@ -126,4 +128,123 @@ public class BinarySearchTreeTest
           assertEquals(9, binarySearchTree.findMax());
      }
 
+     @Test
+     public void rebalanceWithThreeNodes() {
+          binarySearchTree.insert(1);
+          binarySearchTree.insert(2);
+          binarySearchTree.insert(3);
+          binarySearchTree.print();
+          binarySearchTree.rebalance();
+          binarySearchTree.print();
+          assertEquals(2,binarySearchTree.height());
+     }
+
+     @Test
+     public void rebalanceWithFourNodes() {
+          binarySearchTree.insert(1);
+          binarySearchTree.insert(2);
+          binarySearchTree.insert(3);
+          binarySearchTree.insert(4);
+          binarySearchTree.print();
+          binarySearchTree.rebalance();
+          binarySearchTree.print();
+          assertEquals(3,binarySearchTree.height());
+     }
+
+     @Test
+     public void rebalanceWithSevenNodes() {
+          binarySearchTree.insert(1);
+          binarySearchTree.insert(2);
+          binarySearchTree.insert(3);
+          binarySearchTree.insert(4);
+          binarySearchTree.insert(5);
+          binarySearchTree.insert(6);
+          binarySearchTree.insert(7);
+          binarySearchTree.print();
+          binarySearchTree.rebalance();
+          binarySearchTree.print();
+          assertEquals(3,binarySearchTree.height());
+     }
+
+     @Test
+     public void rebalanceWithFifteenNodes() {
+          binarySearchTree.insert(1);
+          binarySearchTree.insert(2);
+          binarySearchTree.insert(3);
+          binarySearchTree.insert(4);
+          binarySearchTree.insert(5);
+          binarySearchTree.insert(6);
+          binarySearchTree.insert(7);
+          binarySearchTree.insert(8);
+          binarySearchTree.insert(9);
+          binarySearchTree.insert(10);
+          binarySearchTree.insert(11);
+          binarySearchTree.insert(12);
+          binarySearchTree.insert(13);
+          binarySearchTree.insert(14);
+          binarySearchTree.insert(15);
+          binarySearchTree.print();
+          binarySearchTree.rebalance();
+          binarySearchTree.print();
+          assertEquals(4,binarySearchTree.height());
+     }
+
+     @Test
+     public void rebalanceWithSixteenNodes() {
+          binarySearchTree.insert(1);
+          binarySearchTree.insert(2);
+          binarySearchTree.insert(3);
+          binarySearchTree.insert(4);
+          binarySearchTree.insert(5);
+          binarySearchTree.insert(6);
+          binarySearchTree.insert(7);
+          binarySearchTree.insert(8);
+          binarySearchTree.insert(9);
+          binarySearchTree.insert(10);
+          binarySearchTree.insert(11);
+          binarySearchTree.insert(12);
+          binarySearchTree.insert(13);
+          binarySearchTree.insert(14);
+          binarySearchTree.insert(15);
+          binarySearchTree.insert(16);
+          binarySearchTree.print();
+          binarySearchTree.rebalance();
+          binarySearchTree.print();
+          assertEquals(5,binarySearchTree.height());
+     }
+
+     @Test
+     public void removeOneElement(){
+          binarySearchTree.insert(3);
+          binarySearchTree.insert(2);
+          binarySearchTree.insert(1);
+          binarySearchTree.rebalance();
+          assertEquals(3, binarySearchTree.findMax());
+          binarySearchTree.removeElement(3);
+          assertEquals(2, binarySearchTree.findMax());
+     }
+
+     @Test
+     public void removeMultipleElements(){
+          binarySearchTree.insert(3);
+          binarySearchTree.insert(2);
+          binarySearchTree.insert(1);
+          binarySearchTree.rebalance();
+          binarySearchTree.removeElement(3);
+          binarySearchTree.removeElement(1);
+          assertEquals(2, binarySearchTree.findMin());
+          assertEquals(1, binarySearchTree.size());
+     }
+
+     @Test
+     public void removeNonExistingElement(){
+          binarySearchTree.insert(3);
+          binarySearchTree.insert(2);
+          binarySearchTree.insert(1);
+          ArrayList<Integer> beforeDelete = binarySearchTree.inOrder();
+          binarySearchTree.removeElement(4);
+          ArrayList<Integer> afterDelete = binarySearchTree.inOrder();
+          for (int i = 0; i < beforeDelete.size(); i++)
+               assertEquals(beforeDelete.get(i), afterDelete.get(i));
+     }
 }
